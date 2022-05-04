@@ -11,7 +11,7 @@ jobs:
         - azure-ios
         - cocoapods-ios
   include:
-    # This builder only tests code linters on latest version of Go 
+    # This builder only tests code linters on latest version of Go
     - stage: lint
       os: linux
       dist: bionic
