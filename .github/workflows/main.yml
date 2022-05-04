@@ -1,0 +1,33 @@
+name: Demo - Black Duck Full Scan
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    env:
+      BLACKDUCK_URL: ${{ secrets.BLACKDUCK_URL}}
+      BLACKDUCK_API_TOKEN: ${{ secrets.BLACKDUCK_API_TOKEN }}
+      
+    steps:
+      - name: check out code
+        uses: actions/checkout@v2
+        
+      - name: setup Go 1.17
+        id: go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.17
+          
+      - name: Install dependencies
+        run: go mod download
+        
+      - name: Black Duck (SCA)
+        run: |
+          bash <(curl -s -L https://detect.synopsys.com/detect7.sh) '--blackduck.url=$BLACKDUCK_URL \
+             --blackduck.api.token=$BLACKDUCK_API_TOKEN \
+             --detect.project.name=$GITHUB_REPOSITORY \
+             --detect.project.version.name=$GITHUB_REF_NAME \
+             --detect.blackduck.signature.scanner.snippet.matching=SNIPPET_MATCHING'
