@@ -22,5 +22,4 @@ pipeline {
                 synopsys_detect detectProperties: '--detect.blackduck.signature.scanner.snippet.matching=SNIPPET_MATCHING --detect.policy.check.fail.on.severities=BLOCKER', downloadStrategyOverride: [$class: 'ScriptOrJarDownloadStrategy']
             }
         }        
-    }
 }
