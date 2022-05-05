@@ -20,9 +20,7 @@ pipeline {
         
         stage('Análise Black Duck') {
             steps {
-                synopsys_detect detectProperties: '--detect.blackduck.signature.scanner.snippet.matching=SNIPPET_MATCHING 
-                --detect.timeout=1000 --detect.policy.check.fail.on.severities=BLOCKER', 
-                downloadStrategyOverride: [$class: 'ScriptOrJarDownloadStrategy']
+                synopsys_detect detectProperties: '--detect.blackduck.signature.scanner.snippet.matching=SNIPPET_MATCHING --detect.timeout=1000 --detect.policy.check.fail.on.severities=BLOCKER', downloadStrategyOverride: [$class: 'ScriptOrJarDownloadStrategy']
             }
         }        
     }
